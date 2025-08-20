@@ -3,10 +3,9 @@
 # ===============================
 # Follows the GI setup in "Domain adaptation under hidden confounding"
 # Key references in code comments: Eq. (3) generator, Thm 4 identifiability, and the closed-form
-# estimation intuition for beta/K (Sec. 4).  [oai_citation:1‡EJS2504-030RA0.pdf](file-service://file-BVWWixtGu7oUUwEXG7DNhL)
 
 # ---- Parameters --------------------------------------------------------------
-ONLY_BEST=T
+ONLY_BEST=F
 project_dir     <- "~/Projects/dahic"              # change if needed
 data_csv        <- "/Users/cgmeixide/Desktop/SPRINT_2021a/SPRINT-POP/data/baseline.csv"
 min_per_site    <- 100                             # filter out small sites
@@ -174,7 +173,6 @@ ols_coef  <- est_drig(data_drig, gamma = 1.0, y_idx = 1, del_idx = NULL, unif_we
 # ---- GI mean-predictions on TEST envs (Eq. (3) with ξ=0) --------------------
 # For GI mean-prediction in test env e:
 #  Ŷ_GI(x) = [1, x]^T beta_hat  +  K_hat^T Σ0^{-1} (x - μ0)
-# where Σ0 and μ0 are the test-env cov and mean of X; see Prop.1 / Cor.1 for moments.  [oai_citation:2‡EJS2504-030RA0.pdf](file-service://file-BVWWixtGu7oUUwEXG7DNhL)
 
 mse_ours <- numeric(length(test_envs))
 mse_drig <- numeric(length(test_envs))
