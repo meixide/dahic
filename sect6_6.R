@@ -167,7 +167,7 @@ Xtr_df     <- data.frame(Xtr)
 data_drig1 <- as_drig_list(Ytr, Xtr_df, y_first = TRUE)  # helper to build list per env
 set.seed('0')
 data_drig <- data_drig1[sample(length(data_drig1))]
-drig_coef <- est_drig(data_drig, gamma = 0.3, y_idx = 1, del_idx = NULL, unif_weight = FALSE)
+drig_coef <- est_drig(data_drig, gamma = 0.5, y_idx = 1, del_idx = NULL, unif_weight = FALSE)
 ols_coef  <- est_drig(data_drig, gamma = 1.0, y_idx = 1, del_idx = NULL, unif_weight = FALSE)
 
 # ---- GI mean-predictions on TEST envs (Eq. (3) with ξ=0) --------------------
@@ -210,12 +210,17 @@ for (i in seq_along(test_envs)) {
   mse_ols[i]  <- median((Yte - pred_ols)^2)
 }
 
-cat("GI (generator) median MSE:", median(mse_ours), " | 30–70%:", quantile(mse_ours, c(0.3, 0.7)), "\n")
-cat("DRIG           median MSE:", median(mse_drig), " | 30–70%:", quantile(mse_drig, c(0.3, 0.7)), "\n")
-cat("OLS            median MSE:", median(mse_ols),  " | 30–70%:", quantile(mse_ols,  c(0.3, 0.7)), "\n")
+l=0.4
+u=0.6
+cat("GI (generator) median MSE:", median(mse_ours), " | 40–60%:", quantile(mse_ours, c(l, u)), "\n")
+cat("DRIG           median MSE:", median(mse_drig), " | 40–60%:", quantile(mse_drig, c(l, u)), "\n")
+cat("OLS            median MSE:", median(mse_ols),  " | 40–60%:", quantile(mse_ols,  c(l, u)), "\n")
 # ---- Small visual: env-wise MSE comparison ----------------------------------
+
+
+
 boxplot(list(GI = mse_ours, DRIG = mse_drig, OLS = mse_ols),
         main = "Test MSE across held-out environments",
-        ylab = "Median squared error (per env)")
+        ylab = "Squared error distribution")
 
 
