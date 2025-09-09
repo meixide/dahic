@@ -6,7 +6,7 @@
 
 library(ivreg)
 
-source('aux_functions.R')
+source('hd.R')
 
 t=2 # Index of test environment (could be non-integer)
 
