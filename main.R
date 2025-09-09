@@ -6,7 +6,6 @@
 
 library(ivreg)
 
-setwd("/Users/cgmeixide/Dropbox/generative_invariance")
 source('aux_functions.R')
 
 t=2 # Index of test environment (could be non-integer)
@@ -47,7 +46,7 @@ for (run in 1:num_runs) {
   
   # Generate predictions for ENV == 2
   xnew <- as.numeric(X[ENV == t])
-  gi <- gi_est(datatrain$Y, data.frame(X = datatrain$X, ENV = datatrain$ENV))
+  gi <- hd(datatrain$Y, data.frame(X = datatrain$X, ENV = datatrain$ENV))
   ygi <- generator(gi$betahat, gi$khat, data.frame(xnew), 0, distributional = FALSE)
   
   # Prepare data for Causal Dantzig estimation
